@@ -116,7 +116,7 @@ int main()
 {
     auto data_loaded = load_csv("/Users/koros/CLionProjects/PrecisionDocMatch/All Active Students.csv");
     auto& data = data_loaded;
-    
+
 
     return 0;
 }
