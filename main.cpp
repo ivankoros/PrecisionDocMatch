@@ -87,13 +87,13 @@ void run_fuzzy_function(const vector<vector<string>>* data,
 
 }
 
-void speed_profile(const vector<vector<string>>* data) {
+void speed_profile(const vector<vector<string>>* data, const int runs = 1000) {
     int con_threads = static_cast<int>(thread::hardware_concurrency());
 
     vector <thread> threads;
     threads.reserve(con_threads);
 
-    int runs_per_thread = 1000 / con_threads;
+    int runs_per_thread = runs / con_threads;
 
     auto start = high_resolution_clock::now();
     for (int i = 0; i < con_threads; i++) {
@@ -108,7 +108,7 @@ void speed_profile(const vector<vector<string>>* data) {
     cout << "Time taken by function: "
          << duration.count() << " microseconds "
          <<  "average time per run: "
-         << duration.count() / 1000 << " microseconds\n"
+         << duration.count() / runs << " microseconds\n"
          << endl;
 }
 
