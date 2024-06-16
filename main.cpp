@@ -43,14 +43,14 @@ void print_matrix(vector<vector<string>> data, const int limit = 500) {
     }
 }
 
-auto find_best_fuzzy_match(const vector<vector<string>>* data,
+auto find_best_fuzzy_match(const vector<vector<string>>& data,
                                              const string& first_name,
                                              const string& last_name) {
     std::tuple<double, int> best_match_index;
-    for (int i = 1; i < (*data).size(); i++) {
+    for (int i = 1; i < data.size(); i++) {
         std::list<double> scores;
-        double first_name_score = rapidfuzz::fuzz::ratio((*data)[i][11], first_name);
-        double last_name_score = rapidfuzz::fuzz::ratio((*data)[i][14], last_name);
+        double first_name_score = rapidfuzz::fuzz::ratio(data[i][11], first_name);
+        double last_name_score = rapidfuzz::fuzz::ratio(data[i][14], last_name);
         scores.push_back(first_name_score);
         scores.push_back(last_name_score);
 
@@ -64,8 +64,8 @@ auto find_best_fuzzy_match(const vector<vector<string>>* data,
     return best_match_index;
 }
 
-unordered_map<string, int> get_column_indicies(const vector<vector<string>>& dataframe,
-                                               bool print = false) {
+[[maybe_unused]] unordered_map<string, int> get_column_name_map(const vector<vector<string>>& dataframe,
+                                                                bool print = false) {
     unordered_map<string, int> column_indicies;
     for (int i = 0; i < dataframe[0].size(); i++) {
         column_indicies[dataframe[0][i]] = i;
@@ -76,7 +76,7 @@ unordered_map<string, int> get_column_indicies(const vector<vector<string>>& dat
     return column_indicies;
 }
 
-void run_fuzzy_function(const vector<vector<string>>* data,
+void run_fuzzy_function(const vector<vector<string>>& data,
                         const string& first_name,
                         const string& last_name,
                         const int& run_amount) {
@@ -87,7 +87,7 @@ void run_fuzzy_function(const vector<vector<string>>* data,
 
 }
 
-void speed_profile(const vector<vector<string>>* data, const int runs = 1000) {
+void speed_profile(const vector<vector<string>>& data, const int runs = 1000) {
     int con_threads = static_cast<int>(thread::hardware_concurrency());
 
     vector <thread> threads;
@@ -116,6 +116,7 @@ int main()
 {
     auto data_loaded = load_csv("/Users/koros/CLionProjects/PrecisionDocMatch/All Active Students.csv");
     auto& data = data_loaded;
+
 
 
     return 0;
